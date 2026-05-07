@@ -1,0 +1,7 @@
+.DS_Store
+Thumbs.db
+*.log
+*.deploy.mp4
+*.deploy.m4v
+*.deploy.mov
+*.original.mp4

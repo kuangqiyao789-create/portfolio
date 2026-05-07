@@ -1,0 +1,68 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="color-scheme" content="light" />
+    <title>AIGC Portfolio</title>
+    <link rel="stylesheet" href="./src/styles.css?v=20260508-home-aigc-dashed-lines" />
+  </head>
+  <body>
+    <div id="announcer" class="sr-only" aria-live="polite" aria-atomic="true"></div>
+
+    <main id="portfolio" class="portfolio-shell">
+      <section
+        id="view-home"
+        class="view is-active"
+        data-view="home"
+        data-width="1920"
+        data-height="16909"
+        tabindex="-1"
+        aria-label="首页"
+      >
+        <div class="figma-frame" data-scene-root></div>
+      </section>
+
+      <section
+        id="view-enterprise"
+        class="view"
+        data-view="enterprise"
+        data-width="1920"
+        data-height="5942"
+        tabindex="-1"
+        aria-label="企业项目"
+        hidden
+      >
+        <div class="figma-frame" data-scene-root></div>
+      </section>
+
+      <section
+        id="view-aigc"
+        class="view"
+        data-view="aigc"
+        data-width="1920"
+        data-height="5265"
+        tabindex="-1"
+        aria-label="AIGC 视频创作"
+        hidden
+      >
+        <div class="figma-frame" data-scene-root></div>
+      </section>
+
+      <section
+        id="view-campus"
+        class="view"
+        data-view="campus"
+        data-width="1920"
+        data-height="9457"
+        tabindex="-1"
+        aria-label="校内项目"
+        hidden
+      >
+        <div class="figma-frame" data-scene-root></div>
+      </section>
+    </main>
+
+    <script src="./src/main.js?v=20260508-home-aigc-dashed-lines" type="module"></script>
+  </body>
+</html>
