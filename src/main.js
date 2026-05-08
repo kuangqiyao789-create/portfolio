@@ -148,7 +148,7 @@ const aigcWorkflowStepCenters = {
 const videoLightboxItems = {
   "video:enterprise-compare": {
     title: "竞品效果对比（内部）",
-    src: "./assets/videos/enterprise-compare.mp4",
+    src: "./assets/videos/enterprise-compare.mp4?v=20260508-detail-balanced",
   },
 };
 
