@@ -1111,7 +1111,7 @@
           "y": -39,
           "width": 1929,
           "height": 1100,
-          "src": "./assets/videos/home-hero-background.mp4",
+          "src": "./assets/videos/home-hero-background-lite.mp4",
           "scaleMode": "FILL",
           "autoplayWhenVisible": true
         },
@@ -1658,7 +1658,7 @@
           "y": 6555,
           "width": 747,
           "height": 476,
-          "src": "./assets/videos/aigc-whoami-demo1.mp4",
+          "src": "./assets/videos/aigc-whoami-demo1-home-preview.mp4",
           "autoplayWhenVisible": true,
           "className": "home-project-video"
         },
@@ -2009,7 +2009,7 @@
           "y": 7258,
           "width": 812,
           "height": 476,
-          "src": "./assets/videos/aigc-whoami-demo2.mp4",
+          "src": "./assets/videos/aigc-whoami-demo2-home-preview.mp4",
           "autoplayWhenVisible": true,
           "className": "home-project-video"
         },
@@ -2309,7 +2309,7 @@
           "y": 7966,
           "width": 743,
           "height": 476,
-          "src": "./assets/videos/aigc-speech.mp4",
+          "src": "./assets/videos/aigc-speech-home-preview.mp4",
           "autoplayWhenVisible": true,
           "className": "home-project-video"
         },
@@ -2321,7 +2321,7 @@
           "y": 8697,
           "width": 812,
           "height": 476,
-          "src": "./assets/videos/aigc-yanyun.mp4",
+          "src": "./assets/videos/aigc-yanyun-home-preview.mp4",
           "autoplayWhenVisible": true,
           "className": "home-project-video"
         },
@@ -2333,7 +2333,7 @@
           "y": 9478,
           "width": 704,
           "height": 1251,
-          "src": "./assets/videos/aigc-yansha.mp4",
+          "src": "./assets/videos/aigc-yansha-home-preview.mp4",
           "autoplayWhenVisible": true,
           "className": "home-project-video"
         },

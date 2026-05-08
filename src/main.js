@@ -309,7 +309,7 @@ function renderLayer(layer, scene) {
 
   if (layer.type === "video") {
     const hasPlayerControls = shouldUseVideoControls(layer, scene);
-    element.src = layer.src;
+    queueVideoSource(element, layer.src, scene.id === "home");
     element.muted = !hasPlayerControls;
     element.defaultMuted = !hasPlayerControls;
     element.controls = hasPlayerControls;
@@ -446,7 +446,7 @@ function addSectionTransitions(frame, scene) {
     element.className = `section-transition section-transition-${transition.className}`;
 
     if (transition.type === "video") {
-      element.src = transition.src;
+      queueVideoSource(element, transition.src, scene.id === "home");
       element.muted = true;
       element.loop = true;
       element.playsInline = true;
@@ -464,6 +464,23 @@ function createLayerElement(layer) {
   if (layer.type === "video") return document.createElement("video");
   if (layer.type === "vector") return document.createElementNS(svgNamespace, "svg");
   return document.createElement("div");
+}
+
+function queueVideoSource(video, src, loadImmediately = false) {
+  if (!src) return;
+  video.dataset.src = src;
+  if (loadImmediately) hydrateVideoSource(video);
+}
+
+function hydrateVideoSource(video) {
+  const src = video.dataset.src;
+  if (!src || video.getAttribute("src") === src) return;
+  video.src = src;
+  video.load();
+}
+
+function hydrateViewVideos(view) {
+  view?.querySelectorAll("video[data-src]").forEach(hydrateVideoSource);
 }
 
 function renderVectorLayer(svg, layer) {
@@ -1031,6 +1048,7 @@ function showView(nextName, scrollY = 0, navTarget = activeTargetForView(nextNam
   pauseAllVideos();
 
   next.hidden = false;
+  hydrateViewVideos(next);
   updateSceneScaleForView(next);
   scheduleTextFit(next);
   next.classList.add("is-entering");
@@ -1431,6 +1449,7 @@ function pauseAllVideos() {
 }
 
 async function playVisibleVideo(video) {
+  hydrateVideoSource(video);
   try {
     await video.play();
     video.classList.add("is-playing");
