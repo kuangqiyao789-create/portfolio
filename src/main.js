@@ -8,6 +8,7 @@ const svgNamespace = "http://www.w3.org/2000/svg";
 const resumePdfUrl = "./assets/docs/%E5%86%B5%E7%90%AA%E7%91%B6%E7%AE%80%E5%8E%8620260507.pdf";
 const resumePreviewUrl = "./assets/docs/resume-preview.png";
 const resumeZoomConfig = { min: 0.7, max: 2.2, step: 0.15 };
+const videoHostOverridesUrl = "./data/video-host-overrides.json";
 
 const anchors = {
   home: 0,
@@ -187,10 +188,12 @@ let navLockTimer = 0;
 let skillGraphScrollHandler;
 let competenceGraphScrollHandler;
 let aigcWorkflowScrollHandlers = [];
+let videoHostOverrides = {};
 
 init();
 
 async function init() {
+  videoHostOverrides = await loadVideoHostOverrides();
   const sceneData = await loadSceneData();
   renderScenes(sceneData);
   renderGlobalTabBar();
@@ -212,6 +215,22 @@ async function loadSceneData() {
   }
 
   return response.json();
+}
+
+async function loadVideoHostOverrides() {
+  try {
+    const response = await fetch(videoHostOverridesUrl, { cache: "no-store" });
+    if (!response.ok) return {};
+    const overrides = await response.json();
+    return overrides && typeof overrides === "object" && !Array.isArray(overrides) ? overrides : {};
+  } catch {
+    return {};
+  }
+}
+
+function resolveVideoSrc(src) {
+  const externalSrc = typeof videoHostOverrides[src] === "string" ? videoHostOverrides[src].trim() : "";
+  return externalSrc || src;
 }
 
 function renderScenes(sceneData) {
@@ -309,7 +328,7 @@ function renderLayer(layer, scene) {
 
   if (layer.type === "video") {
     const hasPlayerControls = shouldUseVideoControls(layer, scene);
-    queueVideoSource(element, layer.src, scene.id === "home");
+    queueVideoSource(element, resolveVideoSrc(layer.src), scene.id === "home");
     element.muted = !hasPlayerControls;
     element.defaultMuted = !hasPlayerControls;
     element.controls = hasPlayerControls;
@@ -352,6 +371,8 @@ function renderImageLayer(layer, scene) {
   inner.src = layer.src;
   inner.alt = "";
   inner.draggable = false;
+  inner.decoding = "async";
+  inner.loading = "lazy";
   if (layer.clipBox) {
     inner.classList.add("is-clipped-source");
     inner.style.left = `${((layer.x - layer.clipBox.x) / layer.clipBox.width) * 100}%`;
@@ -394,6 +415,8 @@ function renderMaskedImageLayer(layer, scene, mask) {
   inner.src = layer.src;
   inner.alt = "";
   inner.draggable = false;
+  inner.decoding = "async";
+  inner.loading = "lazy";
   applyImageTransform(inner, layer);
 
   source.append(inner);
@@ -446,7 +469,7 @@ function addSectionTransitions(frame, scene) {
     element.className = `section-transition section-transition-${transition.className}`;
 
     if (transition.type === "video") {
-      queueVideoSource(element, transition.src, scene.id === "home");
+      queueVideoSource(element, resolveVideoSrc(transition.src), scene.id === "home");
       element.muted = true;
       element.loop = true;
       element.playsInline = true;
@@ -1228,7 +1251,7 @@ function openVideoLightbox(target) {
 
   videoLightboxReturnFocus = document.activeElement instanceof HTMLElement ? document.activeElement : null;
   title.textContent = item.title;
-  video.src = item.src;
+  video.src = resolveVideoSrc(item.src);
   video.currentTime = 0;
   video.muted = false;
   dialog.hidden = false;

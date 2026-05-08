@@ -5,3 +5,4 @@ Thumbs.db
 *.deploy.m4v
 *.deploy.mov
 *.original.mp4
+.tools/
