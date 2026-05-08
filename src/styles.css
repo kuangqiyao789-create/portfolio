@@ -551,6 +551,10 @@ button {
   transition: opacity 180ms linear;
 }
 
+.figma-layer.video[data-figma-name="首页背景视频"] {
+  opacity: 1;
+}
+
 .figma-layer.video[data-player-controls] {
   opacity: 1;
   pointer-events: auto;

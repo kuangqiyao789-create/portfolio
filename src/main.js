@@ -334,7 +334,8 @@ function renderLayer(layer, scene) {
     element.controls = hasPlayerControls;
     element.loop = !hasPlayerControls;
     element.playsInline = true;
-    element.preload = "metadata";
+    element.preload = scene.id === "home" && layer.name === "首页背景视频" ? "auto" : "metadata";
+    if (layer.poster) element.poster = layer.poster;
     element.setAttribute("aria-label", hasPlayerControls ? `${layer.name || scene.label} 视频播放器` : layer.name || "video");
     if (layer.scaleMode) element.dataset.scaleMode = layer.scaleMode.toLowerCase();
     if (hasPlayerControls) element.dataset.playerControls = "";
