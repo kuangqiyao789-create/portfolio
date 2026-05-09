@@ -10017,7 +10017,7 @@
           "y": 5331,
           "width": 690,
           "height": 320,
-          "src": "./assets/videos/enterprise-compare.mp4?v=20260508-detail-balanced",
+          "src": "./assets/videos/enterprise-compare.mp4?v=20260509-online-balanced",
           "scaleMode": "STRETCH",
           "autoplayWhenVisible": true
         },
@@ -12006,7 +12006,7 @@
           "y": 0,
           "width": 1920,
           "height": 1251,
-          "src": "./assets/videos/aigc-home-bg.mp4?v=20260508-detail-balanced",
+          "src": "./assets/videos/aigc-home-bg.mp4?v=20260509-online-balanced",
           "className": "aigc-hero-video",
           "autoplayWhenVisible": true
         }
@@ -13902,7 +13902,7 @@
           "y": 0,
           "width": 1920,
           "height": 1251,
-          "src": "./assets/videos/aigc-whoami-demo2.mp4?v=20260508-detail-balanced",
+          "src": "./assets/videos/aigc-whoami-demo2.mp4?v=20260509-online-balanced",
           "className": "aigc-hero-video",
           "autoplayWhenVisible": true
         }
@@ -15798,7 +15798,7 @@
           "y": 0,
           "width": 1920,
           "height": 1251,
-          "src": "./assets/videos/aigc-speech.mp4?v=20260508-detail-balanced",
+          "src": "./assets/videos/aigc-speech.mp4?v=20260509-online-balanced",
           "className": "aigc-hero-video",
           "autoplayWhenVisible": true
         }
@@ -17706,7 +17706,7 @@
           "y": 0,
           "width": 1920,
           "height": 1251,
-          "src": "./assets/videos/aigc-yanyun.mp4?v=20260508-detail-balanced",
+          "src": "./assets/videos/aigc-yanyun.mp4?v=20260509-online-balanced",
           "className": "aigc-hero-video",
           "autoplayWhenVisible": true
         }
@@ -20211,7 +20211,7 @@
           "y": 0,
           "width": 704,
           "height": 1251,
-          "src": "./assets/videos/aigc-yansha.mp4?v=20260508-detail-balanced",
+          "src": "./assets/videos/aigc-yansha.mp4?v=20260509-online-balanced",
           "className": "aigc-hero-video",
           "autoplayWhenVisible": true
         }
@@ -22439,7 +22439,7 @@
           "y": 5301,
           "width": 1648,
           "height": 969,
-          "src": "./assets/videos/aigc-origami.mp4?v=20260508-detail-balanced",
+          "src": "./assets/videos/aigc-origami.mp4?v=20260509-online-balanced",
           "autoplayWhenVisible": true
         }
       ],
@@ -24204,7 +24204,7 @@
           "y": 8293,
           "width": 1684,
           "height": 924,
-          "src": "./assets/videos/campus-rice-field.mp4?v=20260508-detail-balanced",
+          "src": "./assets/videos/campus-rice-field.mp4?v=20260509-online-balanced",
           "autoplayWhenVisible": true
         }
       ],
@@ -24950,7 +24950,7 @@
           "y": 5480,
           "width": 1651,
           "height": 927,
-          "src": "./assets/videos/campus-sound-walk.mp4?v=20260508-detail-balanced",
+          "src": "./assets/videos/campus-sound-walk.mp4?v=20260509-online-balanced",
           "autoplayWhenVisible": true
         }
       ],

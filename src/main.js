@@ -9,6 +9,7 @@ const resumePdfUrl = "./assets/docs/%E5%86%B5%E7%90%AA%E7%91%B6%E7%AE%80%E5%8E%8
 const resumePreviewUrl = "./assets/docs/resume-preview.png";
 const resumeZoomConfig = { min: 0.7, max: 2.2, step: 0.15 };
 const videoHostOverridesUrl = "./data/video-host-overrides.json";
+const videoHydrationMargin = 900;
 
 const anchors = {
   home: 0,
@@ -148,7 +149,7 @@ const aigcWorkflowStepCenters = {
 const videoLightboxItems = {
   "video:enterprise-compare": {
     title: "竞品效果对比（内部）",
-    src: "./assets/videos/enterprise-compare.mp4?v=20260508-detail-balanced",
+    src: "./assets/videos/enterprise-compare.mp4?v=20260509-online-balanced",
   },
 };
 
@@ -504,7 +505,9 @@ function hydrateVideoSource(video) {
 }
 
 function hydrateViewVideos(view) {
-  view?.querySelectorAll("video[data-src]").forEach(hydrateVideoSource);
+  view?.querySelectorAll("video[data-src]").forEach((video) => {
+    if (isElementNearViewport(video, videoHydrationMargin)) hydrateVideoSource(video);
+  });
 }
 
 function renderVectorLayer(svg, layer) {
@@ -1063,6 +1066,7 @@ function showView(nextName, scrollY = 0, navTarget = activeTargetForView(nextNam
   if (sameView) {
     if (options.lockNavDuringScroll) lockNavDuringScroll(navTarget);
     scrollToDesignY(next, scrollY, options.immediateScroll);
+    requestAnimationFrame(updateAutoplayVideos);
     announce(nextName);
     scheduleTextFit(next);
     return;
@@ -1072,13 +1076,13 @@ function showView(nextName, scrollY = 0, navTarget = activeTargetForView(nextNam
   pauseAllVideos();
 
   next.hidden = false;
-  hydrateViewVideos(next);
   updateSceneScaleForView(next);
   scheduleTextFit(next);
   next.classList.add("is-entering");
   current.classList.add("is-leaving");
 
   scrollToDesignY(next, scrollY, true);
+  hydrateViewVideos(next);
 
   const finish = () => {
     current.hidden = true;
@@ -1483,17 +1487,31 @@ async function playVisibleVideo(video) {
 }
 
 function updateAutoplayVideos() {
-  document.querySelectorAll("video[data-autoplay-when-visible]").forEach((video) => {
+  document.querySelectorAll("video[data-src]").forEach((video) => {
     const owningView = video.closest(".view");
-    const visible = owningView?.dataset.view === activeViewName && isElementVisible(video, 0.25);
+    const active = owningView?.dataset.view === activeViewName;
+    if (active && isElementNearViewport(video, videoHydrationMargin)) hydrateVideoSource(video);
+    if (video.dataset.autoplayWhenVisible === undefined) return;
 
-    if (visible) {
+    if (active && isElementVisible(video, 0.25)) {
       playVisibleVideo(video);
     } else {
       video.pause();
       video.classList.remove("is-playing");
     }
   });
+}
+
+function isElementNearViewport(element, margin = 0) {
+  const rect = element.getBoundingClientRect();
+  const viewportHeight = window.innerHeight || document.documentElement.clientHeight;
+  const viewportWidth = window.innerWidth || document.documentElement.clientWidth;
+  return (
+    rect.bottom >= -margin &&
+    rect.top <= viewportHeight + margin &&
+    rect.right >= -margin &&
+    rect.left <= viewportWidth + margin
+  );
 }
 
 function isElementVisible(element, threshold) {
@@ -1508,13 +1526,13 @@ function isElementVisible(element, threshold) {
 }
 
 function setupVideoObserver() {
-  const videos = document.querySelectorAll("video[data-autoplay-when-visible]");
+  const videos = document.querySelectorAll("video[data-src]");
   if (!videos.length) return;
 
   videoObserver?.disconnect();
   videoObserver = new IntersectionObserver(
     () => updateAutoplayVideos(),
-    { threshold: [0, 0.35, 0.75] }
+    { rootMargin: `${videoHydrationMargin}px 0px`, threshold: [0, 0.35, 0.75] }
   );
 
   videos.forEach((video) => videoObserver.observe(video));
